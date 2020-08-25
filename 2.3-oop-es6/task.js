@@ -131,20 +131,20 @@ class Library {
       if (item[type] === value) {
         return item;
         }
-      } // когда не находит совпадений метод возвращает undefined, что логично, нет соответствующего item. Но если я пытаюсь задать условие else ruturn null, если совпадения не найдены - он возвращает результат поиска по первому объекту из массива (могу ошибаться), цикл прекращается и возвращает null. Как сделать иначе, не совсем пойму, чтобы всё равно дошёл до конца массива, а то у меня останавливается на первом индексе.
-      // У меня была догадка, что, возможно, здесь можно использовать метод forEach(), но я не совсем понимаю его синтаксис (как его прописать). Может быть, здесь как раз он?
+      }
+    return null;
   }
 
   giveBookByName(bookName) {
     for (let item of this.books) {
       if (bookName === item.name) {
         let indexBook = this.books.indexOf(item);
-        let givenBook = this.books.splice(indexBook, 1);
+        let givenBookArray = this.books.splice(indexBook, 1);
+        let givenBook = givenBookArray[0];
         return givenBook;
-      } /*else {
-        return null;
-      }*/ // Как вернуть null, если книга не найдена?? Что я не так делаю? Условие не выполняется - вернуть null. Проверял в консоли мой вариант не работает (условие ложное - цикл прервался). Корректно работает только, если книга есть в списке и без else. Опять же forEach()???
+      }
     }
+    return null;
   }
 
   }
