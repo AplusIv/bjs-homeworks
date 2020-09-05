@@ -3,13 +3,12 @@
 console.log('Задание №1\n');
 
 function parseCount(value) {
-  if (isNaN(Number.parseInt(value, 10))) {
-    //const parsedValueError = new Error("Невалидное значение");
-    //throw parsedValueError;
+  let parsedValue = Number.parseInt(value, 10);
+  if (isNaN(parsedValue)) {
     throw new Error("Невалидное значение");
   }
 
-  return Number.parseInt(value, 10);
+  return parsedValue;
 };
 
 console.log(parseCount(234));
@@ -49,7 +48,10 @@ class Triangle {
   getArea() {
     let p = this.getPerimeter() / 2;
     let area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
-    return area.toFixed(3);
+    //console.log(typeof area);
+    //console.log(typeof +area.toFixed(3))
+    /* toFixed() возвращает строковое значение. typeof aperand используем. */
+    return +area.toFixed(3);
   }
 }
 
@@ -77,7 +79,7 @@ function getTriangle(a, b, c) {
     return new Triangle(a, b, c);//Находит class Triangle во внешней области видимости функции getTriangle, проверяет на условие сторон треугольника в конструкторе класса]
   } catch(e) {
     //return e.message;
-    e.message = "Ошибка! Треугольник не существует";
+    /*e.message = "Ошибка! Треугольник не существует";
     e.a = function getPerimeter() {
       return e.message;
     }
@@ -85,17 +87,13 @@ function getTriangle(a, b, c) {
       return e.message;
     }
     console.log(e);
-    /*let triangle7 = {
-      getPerimeter: function() {
-        let errorMessage = "Ошибка! Треугольник не существует";
-        return errorMessage;
-      },
-      getArea: function() {
-        let errorMessage = "Ошибка! Треугольник не существует";
-        return errorMessage;
-      }
-    };
     */
+    let triangle = {
+      getPerimeter: () => "Ошибка! Треугольник не существует",
+      getArea: () => "Ошибка! Треугольник не существует"
+    };
+    return triangle;
+
     /*
     triangle.getPerimeter = function() {
       let error = "Ошибка! Треугольник не существует";
@@ -118,5 +116,5 @@ console.log(triangle6.getArea());
 
 console.log(getTriangle(1,3,100));
 let triangle7 = getTriangle(1,3,100);
-console.log(e.getPerimeter());
-console.log(e.getArea());
+console.log(triangle7.getPerimeter());
+console.log(triangle7.getArea());
